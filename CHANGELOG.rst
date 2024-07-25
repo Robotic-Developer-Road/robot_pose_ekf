@@ -2,20 +2,33 @@
 Changelog for package robot_pose_ekf
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.14.9 (2021-01-05)
+1.15.0 (2021-03-02)
 -------------------
+* Merge pull request `#13 <https://github.com/ros-planning/robot_pose_ekf/issues/13>`_ from k-okada/add_travis_noetic
+  Close `#12 <https://github.com/ros-planning/robot_pose_ekf/issues/12>`_
+* use format3 to support both nfl and liborocos-blf-dev
+* fixed bfl dependency to be liborocos-bfl-dev
+* fixed bfl dependency to be liborocos-bfl
+* updated wtf.py to be python3 compatible
+* fixed travis.yml for build checks
+* Merge pull request `#8 <https://github.com/ros-planning/robot_pose_ekf/issues/8>`_ from contradict/patch-1
+  Remove email from package.xml
+* Remove email from package.xml
+  I did work on the package several years ago (a port to a new version of ROS), but I am not the author and also not the person named here. Would you mind removing my email from the package?
+* Contributors: Dave Feil-Seifer, Kei Okada, Michael Ferguson, contradict
 
-1.14.8 (2020-08-27)
+1.14.5 (2019-04-04)
 -------------------
-
-1.14.7 (2020-03-10)
--------------------
-
-1.14.6 (2020-03-04)
--------------------
-
-1.14.5 (2019-11-15)
--------------------
+* Merge pull request `#3 <https://github.com/ros-planning/robot_pose_ekf//issues/3>`_ from k-okada/update_maintainer
+  Change maintainer to ROS Orphaned Package Maintainers
+* Change maintainer to ROS Orphaned Package Maintainers
+* Merge pull request `#1 <https://github.com/ros-planning/robot_pose_ekf//issues/1>`_ from k-okada/master
+  robot_pose_ekf back to melodic
+* Merge remote-tracking branch 'k-okada/add_travis'
+* update travis.yml
+* Merge branch 'kinetic-devel'
+* first commit
+* Contributors: Kei Okada
 
 1.14.4 (2018-06-19)
 -------------------

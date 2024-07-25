@@ -226,7 +226,13 @@ namespace estimation
     // receive data 
     imu_stamp_ = imu->header.stamp;
     tf::Quaternion orientation;
-    quaternionMsgToTF(imu->orientation, orientation);
+
+    double yaw_imu=tf::getYaw(imu->orientation); 
+    geometry_msgs::Quaternion imu_orientation= tf::createQuaternionMsgFromYaw(yaw_imu);
+
+    quaternionMsgToTF(imu_orientation, orientation);
+
+
     imu_meas_ = tf::Transform(orientation, tf::Vector3(0,0,0));
     for (unsigned int i=0; i<3; i++)
       for (unsigned int j=0; j<3; j++)
