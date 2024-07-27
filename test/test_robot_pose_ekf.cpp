@@ -72,7 +72,6 @@ public:
   double ekf_counter_, odom_counter_;
   Time ekf_time_begin_, odom_time_begin_;
 
-
   void OdomCallback(const OdomConstPtr& odom)
   {
     // get initial time
@@ -118,11 +117,15 @@ protected:
 
   void SetUp()
   {
-    ROS_INFO("Subscribing to robot_pose_ekf/odom_combined");
-    ekf_sub_ = node_.subscribe("/robot_pose_ekf/odom_combined", 10, &TestEKF::EKFCallback, (TestEKF*)this);
+    std::string odom_topic_, ekf_odom_topic_;
+    node_.param("ekf_odom_topic", ekf_odom_topic_, std::string("/robot_pose_ekf/odom_combined"));
+    node_.param("odom_topic", odom_topic_, std::string("odom"));
 
-    ROS_INFO("Subscribing to base_odometry/odom");
-    odom_sub_ = node_.subscribe("base_odometry/odom", 10 , &TestEKF::OdomCallback, (TestEKF*)this);
+    ROS_INFO("Subscribing to ekf odometry: %s", ekf_odom_topic_.c_str());
+    ekf_sub_ = node_.subscribe(ekf_odom_topic_, 10, &TestEKF::EKFCallback, (TestEKF*)this);
+
+    ROS_INFO("Subscribing to base_odometry: %s", odom_topic_.c_str());
+    odom_sub_ = node_.subscribe(odom_topic_, 10 , &TestEKF::OdomCallback, (TestEKF*)this);
   }
 
   void TearDown()

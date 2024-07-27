@@ -73,7 +73,12 @@ namespace estimation
     ros::NodeHandle nh_private("~");
     ros::NodeHandle nh;
 
-    // paramters
+    // relative paramters, refer robot namespace
+    nh.param("odom_sub_topic", odom_sub_topic, std::string("odom"));    // odom topic subscribed by
+    nh.param("imu_sub_topic", imu_sub_topic, std::string("imu"));      // imu topic subscribed by
+    nh.param("vo_sub_topic", vo_sub_topic, std::string("vo"));        // vo topic subscribed by
+    nh.param("gps_sub_topic", gps_sub_topic, std::string("gps"));        // vo topic subscribed by
+
     nh_private.param("output_frame", output_frame_, std::string("odom_combined"));
     nh_private.param("base_footprint_frame", base_footprint_frame_, std::string("base_footprint"));
     nh_private.param("sensor_timeout", timeout_, 1.0);
@@ -109,27 +114,27 @@ namespace estimation
     // subscribe to odom messages
     if (odom_used_){
       ROS_DEBUG("Odom sensor can be used");
-      odom_sub_ = nh.subscribe("odom", 10, &OdomEstimationNode::odomCallback, this);
+      odom_sub_ = nh.subscribe(odom_sub_topic, 10, &OdomEstimationNode::odomCallback, this);
     }
     else ROS_DEBUG("Odom sensor will NOT be used");
 
     // subscribe to imu messages
     if (imu_used_){
       ROS_DEBUG("Imu sensor can be used");
-      imu_sub_ = nh.subscribe("imu_data", 10,  &OdomEstimationNode::imuCallback, this);
+      imu_sub_ = nh.subscribe(imu_sub_topic, 10,  &OdomEstimationNode::imuCallback, this);
     }
     else ROS_DEBUG("Imu sensor will NOT be used");
 
     // subscribe to vo messages
     if (vo_used_){
       ROS_DEBUG("VO sensor can be used");
-      vo_sub_ = nh.subscribe("vo", 10, &OdomEstimationNode::voCallback, this);
+      vo_sub_ = nh.subscribe(vo_sub_topic, 10, &OdomEstimationNode::voCallback, this);
     }
     else ROS_DEBUG("VO sensor will NOT be used");
 
     if (gps_used_){
       ROS_DEBUG("GPS sensor can be used");
-      gps_sub_ = nh.subscribe("gps", 10, &OdomEstimationNode::gpsCallback, this);
+      gps_sub_ = nh.subscribe(gps_sub_topic, 10, &OdomEstimationNode::gpsCallback, this);
     }
     else ROS_DEBUG("GPS sensor will NOT be used");
 

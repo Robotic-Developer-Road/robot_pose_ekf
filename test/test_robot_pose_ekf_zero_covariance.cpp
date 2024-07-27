@@ -57,7 +57,6 @@ public:
   ros::Subscriber ekf_sub_;
   double ekf_counter_;
 
-
   void EKFCallback(const EkfConstPtr& ekf)
   {
     // count number of callbacks
@@ -85,8 +84,11 @@ protected:
 
 TEST_F(TestEKF, test)
 {
-  ROS_INFO("Subscribing to robot_pose_ekf/odom_combined");
-  ekf_sub_ = node_.subscribe("/robot_pose_ekf/odom_combined", 10, &TestEKF::EKFCallback, (TestEKF*)this);
+  std::string ekf_odom_topic_;
+  node_.param("ekf_odom_topic", ekf_odom_topic_, std::string("/robot_pose_ekf/odom_combined"));
+
+  ROS_INFO("Subscribing to ekf odometry: %s", ekf_odom_topic_.c_str());
+  ekf_sub_ = node_.subscribe(ekf_odom_topic_, 10, &TestEKF::EKFCallback, (TestEKF*)this);
 
   // wait for 20 seconds
   ROS_INFO("Waiting for 20 seconds while bag is playing");
